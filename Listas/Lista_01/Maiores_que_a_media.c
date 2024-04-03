@@ -1,17 +1,29 @@
 #include <stdio.h>
-
+#include <stdlib.h>
 
 
 int main(){
-
-    int n,vn;
-
-
-    while(scanf("%d",&vn) != '\0'){
-        int resultado;
-        for(int i = 0 ; i < vn; i++){
-            resultado +=vn; 
-        }
-        printf("%d", resultado); 
+    int n,soma,media, maiores; 
+    scanf("%d", &n);
+    
+    int vet[n];
+    
+    soma = 0;
+    
+    for(int i = 0; i < n ; i++){
+        scanf("%d", &vet[i]);
+        soma += vet[i];
     }
+    media = soma/ n; 
+    maiores = 0 ; 
+    for(int i = 0 ; i < n ; i ++ ){
+        if(vet[i] > media){
+            printf("%d ", vet[i]);
+            maiores++;
+        }
+    }
+    if(maiores == 0 ){
+        printf("0");
+    }    
+    return 0 ; 
 }
