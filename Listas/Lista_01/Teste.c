@@ -98,6 +98,7 @@ int main() {
 
 
 */
+/*
 #include <stdio.h>
 #include <string.h>
 
@@ -115,4 +116,98 @@ int main() {
     }
 
     return 0;
+
+
+}
+
+
+
+
+WA 0p 
+
+#include <stdio.h>
+#include <string.h>
+int main(){
+    int f, l,numero;    
+    char letra;
+    scanf("%d %d", &f, &l);
+    int dimensao = f*l;
+    
+    char matriz[f][l];
+    
+    for(int i = 0; i < f ; i ++){
+        for(int j = 0 ; j < l; j++){
+            matriz[i][j] = '-'; 
+        }
+    }    
+    
+    while(scanf(" %c%d", &letra, &numero) == 2 ){
+        matriz[letra - 'A'][numero - 1 ] = 'X'; 
+    }
+    printf("  ");
+    for(int i = 1 ; i <= f ; i++){
+        printf("%02d ", i);
+    }
+    printf("\n");
+    
+    for(int i = f-1; i >=0 ; i--){
+        printf("%c ", 'A' + i);
+        for(int j = 0 ; j < l ; j++){
+            printf("%c%c ", matriz[i][j], matriz[i][j]);
+        }
+        printf("\n");
+    }
+}
+*/
+
+#include <stdio.h>
+
+#define MAX_SIZE 500
+
+int main(void){
+
+  int fileiras, lugares;
+
+  while(scanf("%d%d", &fileiras, &lugares) != EOF){
+
+    char fila[fileiras];
+    int lugar[fileiras][lugares]; // Crie uma matriz para armazenar os lugares em cada fileira
+
+    // Inicialize a matriz lugar com zeros
+    for(int i = 0; i < fileiras; i++){
+      for(int j = 0; j < lugares; j++){
+        lugar[i][j] = 0;
+      }
+    }
+
+    char c;
+    int n;
+    while(scanf(" %c%d", &c, &n) == 2){
+      fila[c - 'A'] = c;
+      lugar[c - 'A'][n - 1] = 1; // Marque o lugar como ocupado
+    }
+
+    // Imprima os números
+    printf("  ");
+    for(int i = 1; i <= lugares; i++){
+      printf("%02d ", i);
+    }
+    printf("\n");
+
+    // Imprima as fileiras e lugares
+    for(int i = fileiras - 1; i >= 0; i--){
+      printf("%c ", fila[i]);
+      for(int j = 0; j < lugares; j++){
+        if(lugar[i][j] == 1){ // Verifique se o lugar j na fileira i está ocupado
+          printf("XX ");
+        }else{
+          printf("-- ");
+        }
+      }
+      printf("\n");
+    }
+  }
+
+  return 0;
+
 }
