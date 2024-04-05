@@ -12,9 +12,11 @@ int main(){
     scanf("%d %d", &f, &l);
     int dimensao = f*l;
     
-    
-
     char matriz[f][l];
+    for(int i = 0; i < dimensao ; i ++){
+        scanf(" %c%d", &letra, &numero);
+    }
+        
     
         for(int i = 0 ; i < f; i ++){    
             for(int j = 0; j < l ; j++){
@@ -42,6 +44,7 @@ int main(){
     }
     return 0 ; 
 }
+
      
 
 
