@@ -8,6 +8,7 @@ int main(){
 
     char salaCinema[fila][lugar]; 
 
+
     for(int i = 0; i < fila; i ++){
         for(int j = 0; j < lugar ; j++){
             salaCinema[i][j] = '-';  

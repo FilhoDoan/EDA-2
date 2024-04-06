@@ -3,7 +3,8 @@
 
 
 int main(){
-    int n,soma,media, maiores; 
+    int n, media, maiores; 
+    double soma; 
     scanf("%d", &n);
     
     int vet[n];
