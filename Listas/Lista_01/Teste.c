@@ -158,7 +158,6 @@ int main(){
         printf("\n");
     }
 }
-*/
 
 #include <stdio.h>
 
@@ -211,3 +210,195 @@ int main(void){
   return 0;
 
 }
+
+#include <stdio.h>
+#include <stdlib.h>
+
+// Definindo uma estrutura para um ponto no plano cartesiano
+typedef struct {
+    double x;
+    double y;
+} Ponto;
+
+// Função para criar um ponto
+Ponto criarPonto(double x, double y) {
+    Ponto ponto;
+    ponto.x = x;
+    ponto.y = y;
+    return ponto;
+}
+
+// Função para imprimir um ponto
+void imprimirPonto(Ponto ponto) {
+    printf("(%lf, %lf)\n", ponto.x, ponto.y);
+}
+
+// Função para desenhar o plano cartesiano
+void desenharPlano(int largura, int altura) {
+    for (int y = altura / 2; y >= -altura / 2; y--) {
+        for (int x = -largura / 2; x <= largura / 2; x++) {
+            if (x == 0 && y == 0) {
+                printf("+ "); // Origem
+            } else if (x == 0) {
+                printf("| "); // Linhas verticais
+            } else if (y == 0) {
+                printf("- "); // Linhas horizontais
+            } else {
+                printf(". "); // Espaço vazio
+            }
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    // Tamanho do plano
+    int largura = 20;
+    int altura = 10;
+
+    // Desenha o plano
+    desenharPlano(largura, altura);
+
+    return 0;
+}
+
+*/
+#include <stdio.h>
+
+int main() {
+    int n, m; 
+    scanf("%d %d", &n, &m);
+
+    int pa_x = 1, pa_y = 1; // Posição inicial do Professor A (PA)
+    int pb_x = n, pb_y = m; // Posição inicial do Professor B (PB)
+
+    int p;
+    scanf("%d", &p);
+
+    int pa_saiu = 0, pb_saiu = 0, encontro = 0, passo_encontro = -1;
+
+    for (int passo = 1; passo <= p; passo++) {
+        int a, b;
+        scanf("%d %d", &a, &b);
+
+        // Atualiza a posição do Professor A
+        switch (a) {
+            case 1:
+                pa_y++;
+                break;
+            case 2:
+                pa_y--;
+                break;
+            case 3:
+                pa_x++;
+                break;
+            case 4:
+                pa_x--;
+                break;
+        }
+
+        // Atualiza a posição do Professor B
+        switch (b) {
+            case 1:
+                pb_y++;
+                break;
+            case 2:
+                pb_y--;
+                break;
+            case 3:
+                pb_x++;
+                break;
+            case 4:
+                pb_x--;
+                break;
+        }
+
+        // Verifica se ocorreu encontro
+        if (pa_x == pb_x && pa_y == pb_y && !encontro) {
+            encontro = 1;
+            passo_encontro = passo;
+        }
+
+        // Verifica se algum professor saiu do CP
+        if ((pa_x <= 0 || pa_x > n || pa_y <= 0 || pa_y > m) && !pa_saiu) {
+            pa_saiu = 1;
+            printf("PA saiu na posicao (%d,%d) no passo %d\n", pa_x, pa_y, passo);
+        }
+        if ((pb_x <= 0 || pb_x > n || pb_y <= 0 || pb_y > m) && !pb_saiu) {
+            pb_saiu = 1;
+            printf("PB saiu na posicao (%d,%d) no passo %d\n", pb_x, pb_y, passo);
+        }
+    }
+
+    // Se não houve encontro ou saída, imprime "Nao se encontraram"
+    if (!encontro && !pa_saiu && !pb_saiu)
+        printf("Nao se encontraram\n");
+    else if (encontro)
+        printf("Encontraram-se na posicao (%d,%d) no passo %d\n", pa_x, pa_y, passo_encontro);
+
+    return 0;
+}
+
+/*
+#include <stdio.h>
+
+int main() {
+    int n, m; 
+    scanf("%d %d", &n, &m);
+
+    int p;
+    scanf("%d", &p);
+
+    int a, b;
+
+    int aX = 1, aY = 1;
+    int bX = n, bY = m;
+    int pEncontro = 0; 
+    int aSaida = 0;
+    int bSaida = 0 ;
+    int pSaidaA = 0; 
+    int pSaidaB = 0; 
+
+    for(int i = 0 ; i < p; i++){
+        scanf("%d %d", &a, &b); 
+        switch (a){
+            case 1: aY++; break;
+            case 2: aY--; break;
+            case 3: aX++; break;
+            case 4: aX--; break;
+            default: break;
+        }  
+
+        switch (b){
+            case 1: bY++; break;
+            case 2: bY--; break;
+            case 3: bX++; break;
+            case 4: bX--; break;
+            default:break;
+        }
+        if(aX == bX && aY == bY){
+            pEncontro = i + 1; // Adicionando 1 para obter o passo correto
+        }
+        if(aX < 1 || aY < 1 ){    
+            aSaida = 1;
+            pSaidaA = i + 1; // Adicionando 1 para obter o passo correto
+        }
+        if(bX < 1 || bY < 1){
+            bSaida = 1; 
+            pSaidaB = i + 1; // Adicionando 1 para obter o passo correto
+        }     
+    } 
+
+    printf("(%d,%d) (%d,%d)\n", aX, aY, bX, bY);
+
+    if(aSaida == 1) printf("PA saiu na posicao (%d,%d) no passo %d\n", aX, aY, pSaidaA);
+    if(bSaida == 1) printf("PB saiu na posicao (%d,%d) no passo %d\n", bX, bY, pSaidaB);
+
+    return 0;
+}
+
+*/
+
+/*
+
+*/
