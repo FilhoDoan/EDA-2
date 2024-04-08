@@ -262,7 +262,7 @@ int main() {
     return 0;
 }
 
-*/
+
 #include <stdio.h>
 
 int main() {
@@ -398,7 +398,4 @@ int main() {
 }
 
 */
-
-/*
-
-*/
+A quarta linha contém K inteiros, entre 1, 2,

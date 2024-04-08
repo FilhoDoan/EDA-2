@@ -41,8 +41,7 @@ int pEncontro = 0;
         if(aX == bX && aY == bY){
             pEncontro = i; 
             printf("Encontraram-se na posicao (%d,%d) no passo %d\n", aX,aY, pEncontro);
-            return 0 ; 
-          
+            return 0 ;         
         }
 
         if(aX < 1 || aY < 1 || aX > n || aX > m){
