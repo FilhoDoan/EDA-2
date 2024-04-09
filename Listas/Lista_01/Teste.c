@@ -397,5 +397,91 @@ int main() {
     return 0;
 }
 
+
+#include <stdio.h>
+
+int main() {
+    int linhas, colunas;
+    int mic_linha, mic_coluna;
+    int num_movimentos;
+    int movimentos[1000000]; // Considerando o limite máximo de movimentos
+
+    // Lê os valores de entrada
+    scanf("%d %d", &linhas, &colunas);
+    scanf("%d %d", &mic_linha, &mic_coluna);
+    scanf("%d", &num_movimentos);
+    for (int i = 0; i < num_movimentos; i++) {
+        scanf("%d", &movimentos[i]);
+    }
+
+    // Verifica se o microfone está no mesmo quadrado que os homens inicialmente
+    int minutos_captados = 0;
+    if (mic_linha == 0 && mic_coluna == 0) {
+        minutos_captados++;
+    }
+
+    // Simulação dos movimentos dos homens
+    int linha = 0, coluna = 0;
+    for (int i = 0; i < num_movimentos; i++) {
+        // Executa o movimento de acordo com a direção escolhida
+        switch (movimentos[i]) {
+            case 1: // Norte
+                linha--;
+                break;
+            case 2: // Sul
+                linha++;
+                break;
+            case 3: // Leste
+                coluna++;
+                break;
+            case 4: // Oeste
+                coluna--;
+                break;
+        }
+
+        // Verifica se os homens estão no mesmo quadrado que o microfone
+        if (linha == mic_linha && coluna == mic_coluna) {
+            minutos_captados++;
+        }
+    }
+
+    // Imprime o resultado
+    printf("%d\n", minutos_captados);
+
+    return 0;
+}
+
 */
-A quarta linha contém K inteiros, entre 1, 2,
+
+
+#include <stdio.h>
+
+typedef struct Coordenada {
+    int x;
+    int y;
+} Coordenada;
+
+int main() {
+    Coordenada micCoordenadaXMeio;
+    Coordenada micCoordenadaXEsquerda;
+    Coordenada micCoordenadaXDireita;
+    Coordenada micCoordenadaYMeio;
+
+    int x, y;
+
+    // Solicitar entrada do usuário
+    printf("Digite as coordenadas (x y): ");
+    scanf("%d %d", &x, &y);
+
+    micCoordenadaXMeio.x = x;
+    micCoordenadaXMeio.y = y;
+    micCoordenadaXDireita.x = x + 1;
+    micCoordenadaXDireita.y = y;
+    micCoordenadaXEsquerda.x = x - 1;
+    micCoordenadaXEsquerda.y = y;
+
+    // Imprimir as coordenadas de micCoordenadaXMeio
+    printf("Coordenadas de micCoordenadaXMeio: %d %d\n", micCoordenadaXMeio.x, micCoordenadaXMeio.y);
+
+    return 0;
+}
