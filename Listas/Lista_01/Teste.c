@@ -451,7 +451,6 @@ int main() {
     return 0;
 }
 
-*/
 
 
 #include <stdio.h>
@@ -482,6 +481,63 @@ int main() {
 
     // Imprimir as coordenadas de micCoordenadaXMeio
     printf("Coordenadas de micCoordenadaXMeio: %d %d\n", micCoordenadaXMeio.x, micCoordenadaXMeio.y);
+
+    return 0;
+}
+
+*/
+
+#include <stdio.h>
+
+// Função para verificar se um determinado quadrado está adjacente ao microfone
+int isAdjacent(int mic_x, int mic_y, int square_x, int square_y) {
+    if ((square_x >= mic_x - 1 && square_x <= mic_x + 1) &&
+        (square_y >= mic_y - 1 && square_y <= mic_y + 1)) {
+        return 1;
+    }
+    return 0;
+}
+
+int main() {
+    int N, M; // Dimensões do parque
+    int mic_x, mic_y; // Coordenadas do microfone
+    int K; // Número de quadrados percorridos pelos homens
+    int direction; // Direção tomada pelos homens
+    int captured_minutes = 0; // Contador de minutos de conversação captados
+
+    // Leitura da entrada
+    scanf("%d %d", &N, &M);
+    scanf("%d %d", &mic_x, &mic_y);
+    scanf("%d", &K);
+
+    // Loop para processar os movimentos dos homens
+    while (K--) {
+        scanf("%d", &direction);
+
+        // Atualizando coordenadas dos homens de acordo com a direção escolhida
+        switch (direction) {
+            case 1: // Norte
+                mic_x--;
+                break;
+            case 2: // Sul
+                mic_x++;
+                break;
+            case 3: // Leste
+                mic_y++;
+                break;
+            case 4: // Oeste
+                mic_y--;
+                break;
+        }
+
+        // Verificando se o microfone captou a conversa
+        if (isAdjacent(mic_x, mic_y, mic_x, mic_y)) {
+            captured_minutes++;
+        }
+    }
+
+    // Saída
+    printf("%d\n", captured_minutes);
 
     return 0;
 }
