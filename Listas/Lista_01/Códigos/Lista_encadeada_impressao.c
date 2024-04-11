@@ -1,39 +1,28 @@
-#include <stdio.h>
+    #include <stdio.h>
+    #include <stdlib.h>
 
+    typedef struct celula {
+        int dado;
+        struct celula *prox ;
+    }celula ; 
 
-typedef struct celula {
-    int dado;
-    struct celula *prox ;
-}celula ; 
-
-void imprime(celula* le){
-
-    while (le != NULL){
-        printf("%d -> ", le->dado);
-        le = le->prox;
+    void imprime(celula* le){
+        celula *cb = le;
+        cb = cb->prox; 
+        while (cb != NULL){
+            printf("%d -> ", cb->dado);
+            cb = cb->prox; 
+        }
+       printf("NULL\n");
     }
 
-    // celula *cabeca = le;
-    // cabeca = cabeca->prox ; 
-    // while(cabeca != NULL){
-    //      printf("%d -> ", cabeca->dado); 
-    //      cabeca = cabeca->prox ; 
-           
-    // } 
-    // if(cabeca == NULL){
-    //     printf("NULL\n"); 
-    // }
-
-    printf("NULL\n");
-}
-
-void imprime_rec(celula *le){
-    
-    printf("%d -> ", le->dado);    
-    if(le->prox == NULL){
-        printf("NULL\n"); 
-        return ; 
+    void imprime_rec(celula *le){
+        celula *cb = le;
+        cb = cb->prox; 
+        if(cb == NULL){
+            printf("NULL\n");
+            return;
+        }
+        printf("%d -> ", cb->dado);
+        imprime_rec(le->prox);
     }
-    imprime_rec(le->prox);
-
-}
