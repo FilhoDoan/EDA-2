@@ -1,70 +1,64 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct problemas{
-      double dificuldade; 
-      int posicao; 
-      int membro ; 
+// Estrutura para representar um problema
+typedef struct {
+    double pontuacao;
+    int membro;
+    int posicao;
+} Problema;
 
-}problemas; 
-#define less(A,B) ((A) < (B))
-#define lesseq(A,B) ((A) <= (B))
-#define cmpexch(A,B) { if (less(B,A)) exch(A,B); }
-#define exch(A,B) { problemas t; t=A;A=B;B=t; }
+// Função de comparação para o qsort
+int comparar(const void *a, const void *b) {
+    Problema *p1 = (Problema *)a;
+    Problema *p2 = (Problema *)b;
 
+    // Comparação da pontuação
+    if (p1->pontuacao > p2->pontuacao) return -1;
+    if (p1->pontuacao < p2->pontuacao) return 1;
 
+    // Em caso de empate na pontuação, compara por número do membro
+    if (p1->membro < p2->membro) return -1;
+    if (p1->membro > p2->membro) return 1;
 
-int partition (problemas *v, int l, int r){
-      problemas pivo = v[r];
-      int j = l ; 
+    // Em caso de empate no número do membro, compara por posição na lista de problemas
+    if (p1->posicao < p2->posicao) return -1;
+    if (p1->posicao > p2->posicao) return 1;
 
-      for(int k = l; k < r ; k++){
-            if(v[k].dificuldade < pivo.dificuldade ){
-                  exch(v[k], v[j]);
-                  j++;
+    return 0;
+}
+
+int main() {
+    int casos;
+    scanf("%d", &casos);
+
+    while (casos--) {
+        int linhas, colunas;
+        scanf("%d %d", &linhas, &colunas);
+
+        Problema *problemas = malloc(linhas * colunas * sizeof(Problema));
+
+        // Preenchimento da matriz de problemas
+        for (int i = 0; i < linhas; i++) {
+            for (int j = 0; j < colunas; j++) {
+                scanf("%lf", &problemas[i * colunas + j].pontuacao);
+                problemas[i * colunas + j].membro = i + 1;
+                problemas[i * colunas + j].posicao = j + 1;
             }
-      }
-      exch(v[j],v[r]);
-      return j;
-}
-
-
-void quick_sort(problemas *v, int l, int r){
-      int p = partition(v,l,r);
-      quick_sort(v,l,p-1);
-      quick_sort(v,p+1,r);
-
-}
-/* arr[j].score > pivot.score || (arr[j].score == pivot.score && arr[j].member < pivot.member) || 
-(arr[j].score == pivot.score && arr[j].member == pivot.member && arr[j].position < pivot.position */
-
-
-int main(){
-
-    int t, m, n ;
-    float numF ; 
-    scanf("%d",&t);
-    scanf("%d",&m);
-    scanf("%d",&n);
-    
-    problemas *array = (problemas*)malloc(n*m*sizeof(problemas)); 
-
-    
-    for(int i = 0 ; i < n ; i++){
-        for(int j = 0; j < m ; j++){
-            scanf("%lf", &array[i*m+j].dificuldade);
         }
+
+        // Ordenação dos problemas usando qsort
+        qsort(problemas, linhas * colunas, sizeof(Problema), comparar);
+
+        // Saída dos problemas ordenados
+        for (int i = 0; i < linhas * colunas; i++) {
+            printf("%d,%d", problemas[i].membro, problemas[i].posicao);
+            if (i != linhas * colunas - 1) printf(" ");
+        }
+        printf("\n");
+
+        free(problemas);
     }
-      quick_sort(array, 0, n*m -1);
 
-    for(int i = 0 ; i < n*m ; i++){
-      printf("%lf", array[i].dificuldade);
-    }  
-
-
-    
-
-
-
-
+    return 0;
 }
